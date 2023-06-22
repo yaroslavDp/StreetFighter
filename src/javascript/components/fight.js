@@ -5,8 +5,9 @@ import controls from '../../constants/controls';
 import createElement from '../helpers/domHelper';
 
 export function getHitPower(fighter) {
-    const criticalHitChance = fighter.critInput.length === 3 ? 2 : Math.random() + 1;
-    return fighter.attack * criticalHitChance;
+    const { attack } = fighter;
+    const criticalHitChance = Math.random() + 1;
+    return fighter.critInput.length !== 3 ? attack * criticalHitChance : attack * 2;
 }
 
 export function getBlockPower(fighter) {
@@ -15,7 +16,9 @@ export function getBlockPower(fighter) {
 }
 
 export function getDamage(attacker, defender) {
-    const damage = getHitPower(attacker) - getBlockPower(defender);
+    const hitPower = getHitPower(attacker);
+    const blockPower = getBlockPower(defender);
+    const damage = hitPower - blockPower;
     return damage > 0 ? damage : 0;
 }
 
@@ -69,6 +72,11 @@ export async function fight(firstFighter, secondFighter) {
         }
 
         function doAttack(attacker, defender) {
+            if (attacker.critInput.length === 3) {
+                showStatus(attacker, 'Critical hit!');
+                defender.block = false;
+            }
+
             if (defender.block) {
                 showStatus(defender, 'Blocked!');
                 return;
@@ -78,10 +86,6 @@ export async function fight(firstFighter, secondFighter) {
             if (!totalDamage) {
                 showStatus(attacker, 'Missed!');
                 return;
-            }
-
-            if (attacker.critInput.length === 3) {
-                showStatus(attacker, 'Critical hit!');
             }
 
             showStatus(defender, `-${totalDamage.toFixed(1)}HP`);
