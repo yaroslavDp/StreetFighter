@@ -1,5 +1,7 @@
 import createElement from '../helpers/domHelper';
 import { createFighterImage } from './fighterPreview';
+import showWinnerModal from './modal/winner';
+import { fight } from './fight';
 
 function createFighter(fighter, position) {
     const imgElement = createFighterImage(fighter);
@@ -59,14 +61,17 @@ function createArena(selectedFighters) {
     return arena;
 }
 
-export default function renderArena(selectedFighters) {
+export default async function renderArena(selectedFighters) {
     const root = document.getElementById('root');
     const arena = createArena(selectedFighters);
 
     root.innerHTML = '';
     root.append(arena);
 
-    // todo:
-    // - start the fight
-    // - when fight is finished show winner
+    try {
+        const winner = await fight(...selectedFighters);
+        showWinnerModal(winner);
+    } catch (error) {
+        throw error;
+    }
 }
