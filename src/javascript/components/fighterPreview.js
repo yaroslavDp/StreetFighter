@@ -7,7 +7,6 @@ export function createFighterPreview(fighter, position) {
         className: `fighter-preview___root ${positionClassName}`
     });
 
-
     function createProperty(keyValue) {
         let icon = '';
         const nameElement = createElement({ tagName: 'span', className: 'fighter-preview___property' });

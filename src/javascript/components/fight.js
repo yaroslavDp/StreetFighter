@@ -1,9 +1,11 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-expressions */
 import controls from '../../constants/controls';
 import createElement from '../helpers/domHelper';
 
 export async function fight(firstFighter, secondFighter) {
     return new Promise(resolve => {
-        
         const healthBarsContainer = document.querySelectorAll('.arena___health-bar');
         const healthBars = [...healthBarsContainer];
         const statusInfo = {
@@ -154,19 +156,16 @@ export async function fight(firstFighter, secondFighter) {
 }
 
 export function getDamage(attacker, defender) {
-
     const damage = getHitPower(attacker) - getBlockPower(defender);
     return damage > 0 ? damage : 0;
 }
 
 export function getHitPower(fighter) {
-
     const criticalHitChance = fighter.critInput.length === 3 ? 2 : Math.random() + 1;
     return fighter.attack * criticalHitChance;
 }
 
 export function getBlockPower(fighter) {
-
     const dodjeChance = Math.random() + 1;
     return fighter.defense * dodjeChance;
 }

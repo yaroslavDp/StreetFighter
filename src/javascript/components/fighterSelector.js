@@ -7,7 +7,6 @@ import fighterService from '../services/fightersService';
 const fighterDetailsMap = new Map();
 
 export async function getFighterInfo(fighterId) {
-    
     try {
         if (!fighterDetailsMap.has(fighterId)) {
             const fighterInfo = await fighterService.getFighterDetails(fighterId);

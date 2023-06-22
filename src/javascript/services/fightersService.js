@@ -15,8 +15,6 @@ class FighterService {
     }
 
     async getFighterDetails(id) {
-        
-        
         try {
             const endpoint = `${this.#fighterEndpoint + id}.json`;
             const apiResult = await callApi(endpoint);
