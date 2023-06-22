@@ -4,6 +4,21 @@
 import controls from '../../constants/controls';
 import createElement from '../helpers/domHelper';
 
+export function getHitPower(fighter) {
+    const criticalHitChance = fighter.critInput.length === 3 ? 2 : Math.random() + 1;
+    return fighter.attack * criticalHitChance;
+}
+
+export function getBlockPower(fighter) {
+    const dodjeChance = Math.random() + 1;
+    return fighter.defense * dodjeChance;
+}
+
+export function getDamage(attacker, defender) {
+    const damage = getHitPower(attacker) - getBlockPower(defender);
+    return damage > 0 ? damage : 0;
+}
+
 export async function fight(firstFighter, secondFighter) {
     return new Promise(resolve => {
         const healthBarsContainer = document.querySelectorAll('.arena___health-bar');
@@ -153,19 +168,4 @@ export async function fight(firstFighter, secondFighter) {
         document.addEventListener('keydown', onKeyDown);
         document.addEventListener('keyup', onKeyUp);
     });
-}
-
-export function getDamage(attacker, defender) {
-    const damage = getHitPower(attacker) - getBlockPower(defender);
-    return damage > 0 ? damage : 0;
-}
-
-export function getHitPower(fighter) {
-    const criticalHitChance = fighter.critInput.length === 3 ? 2 : Math.random() + 1;
-    return fighter.attack * criticalHitChance;
-}
-
-export function getBlockPower(fighter) {
-    const dodjeChance = Math.random() + 1;
-    return fighter.defense * dodjeChance;
 }
