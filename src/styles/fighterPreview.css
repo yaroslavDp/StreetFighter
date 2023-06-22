@@ -11,3 +11,13 @@
 .fighter-preview___left {
   align-items: flex-start;
 }
+
+.fighter-preview___property-box {
+  max-width: 120px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffdfa7;
+  border: 5px solid #ca9650;
+}
