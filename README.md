@@ -1,5 +1,3 @@
-# JS for everyone
-
 ## 🏃‍♂️ Simple start
 
 1. **`npm run setup`** at the root
